@@ -1,0 +1,17 @@
+# Core (exact duplicate detection, dry run, moves, recovery, restore):
+#   no third-party packages are required -- Python 3.9+ standard library only.
+#
+# Optional capabilities. Install what you need:
+#   pip install -r requirements.txt
+#
+# Version notes: Pillow 12.3.0 is the version the test-suite was run with.
+# ImageHash / mutagen / pillow-heif are optional accelerators and are used
+# only when importable; the code falls back to built-in implementations
+# (pHash/dHash) or FFmpeg (audio metadata) when they are absent.
+
+Pillow>=9.5,<13            # image decoding + perceptual hashing (similarity mode)
+ImageHash>=4.3,<5          # optional: faster/standard pHash & dHash
+mutagen>=1.46,<2           # optional: audio metadata without FFmpeg
+pillow-heif>=0.13          # optional: HEIC/HEIF decoding for similarity mode
+tomli>=2.0; python_version < "3.11"   # optional: full TOML parser on Python 3.9/3.10
+pytest>=7                  # tests (they also run with: python -m unittest)

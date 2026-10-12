@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duplicate-finder"
+version = "1.0.0"
+description = "Cross-platform duplicate media finder that relocates surplus copies safely and never deletes originals"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Madhu Kumar", email = "madhu.a@hotmail.com" }]
+keywords = ["duplicates", "dedupe", "photos", "media", "sha256", "perceptual-hash"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Environment :: Console",
+    "Topic :: System :: Filesystems",
+]
+# The exact-duplicate engine uses only the standard library.
+dependencies = []
+
+[project.optional-dependencies]
+# Tested with Pillow 12.3.0.  The other ranges are the documented compatible
+# APIs; see README "Dependencies" for details.
+images = ["Pillow>=9.5,<13", "ImageHash>=4.3,<5", "pillow-heif>=0.13"]
+audio = ["mutagen>=1.46,<2"]
+toml = ["tomli>=2.0; python_version < '3.11'"]
+test = ["pytest>=7"]
+all = ["Pillow>=9.5,<13", "ImageHash>=4.3,<5", "pillow-heif>=0.13", "mutagen>=1.46,<2",
+       "tomli>=2.0; python_version < '3.11'"]
+
+[project.scripts]
+duplicate-finder = "duplicate_finder.cli:main"
+
+# Third-party file-type handlers can register themselves here:
+# [project.entry-points."duplicate_finder.handlers"]
+# svg = "my_package.handlers:SvgHandler"
+
+[tool.setuptools]
+packages = ["duplicate_finder", "duplicate_finder.detectors"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

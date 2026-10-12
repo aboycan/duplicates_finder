@@ -1,0 +1,58 @@
+# duplicate_finder sample configuration
+# Use with:  python -m duplicate_finder scan PATH --config config.sample.toml
+# Command-line options override anything set here.
+# Paths may use ~ for your home folder. On Windows use single quotes: 'D:\Photos\Duplicates'
+
+[scan]
+mode = "exact"              # exact | similarity | all
+action = "dry-run"          # dry-run | report | interactive | auto
+categories = ["image", "video", "audio", "other"]
+exclude_dirs = [".git", "__pycache__", "node_modules", "$RECYCLE.BIN", "System Volume Information",
+                ".Trash", ".Trashes", ".Trash-*", ".Spotlight-V100", ".fseventsd"]
+exclude_files = ["Thumbs.db", "desktop.ini", ".DS_Store", "*.dfpart", "._*"]
+min_size = 0                # bytes; empty files ARE exact duplicates of each other
+symlink_policy = "skip"     # skip | follow-within-roots
+hardlinks_as_duplicates = false
+stability_seconds = 0       # skip files modified within the last N seconds (0 = off)
+validate_media = false      # decode images to detect corruption (slower)
+
+[destination]
+# destination = "~/Duplicates"   # default: a "Duplicates" folder next to the first scan root
+layout = "category"         # category | flat | mirror
+
+[destination.category_dirs]
+image = "Images"
+video = "Videos"
+audio = "Audio"
+other = "Other"
+
+[verification]
+verify = "sha256"           # sha256 | bytes (adds full byte-for-byte comparison)
+chunk_size = 1048576        # bytes read per I/O call
+workers = 4                 # concurrent readers; use 1-2 for spinning disks, 4-8 for SSD/NVMe
+use_cache = true
+
+[originals]
+# Rules applied in order to choose the copy that stays where it is.
+keep = ["prefer-paths", "root-order", "oldest", "shortest-path", "path"]
+# prefer_paths = ["~/Pictures/Master"]
+
+[similarity]
+image_probable_distance = 4     # max pHash/dHash bit difference (of 64) for "probable"
+image_review_distance = 10      # max difference for "requires review"
+audio_duration_tolerance = 1.0
+audio_fingerprint_probable = 0.92
+audio_fingerprint_review = 0.80
+video_samples = 5
+video_duration_tolerance = 1.5
+video_probable_distance = 6.0
+video_review_distance = 12.0
+external_timeout = 60.0         # seconds for each ffmpeg / ffprobe / fpcalc call
+
+[reports]
+report_formats = ["json", "csv", "text"]
+redact_paths = false
+# report_dir = "~/duplicate_finder_reports"
+
+[extensions]
+plugins = []                    # e.g. ["my_package.my_handlers"]; module must define register(registry)
