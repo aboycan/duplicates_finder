@@ -1,5 +1,18 @@
 # duplicate_finder
 
+> [!WARNING]
+> **Beta software (v1.0.0b1).** The safety design is complete and covered by 105 automated tests,
+> but the tool has had limited real-world use so far, especially on Windows and with large libraries.
+> Until it reaches a stable release:
+>
+> - **Start with a dry run** (the default) and read the report before moving anything.
+> - **Keep a backup** of any folder you let it organise, and prefer `--interactive` over `--auto`.
+> - **Similarity matching** (`--mode similarity` / `all`) is experimental; its thresholds may change.
+> - Command-line options, config keys and report formats may change between beta releases.
+>
+> Please report problems (with the command you ran and its output) in
+> [GitHub Issues](https://github.com/aboycan/duplicates_finder/issues).
+
 A cross-platform (Windows 10/11, Linux, macOS) duplicate media finder written in Python.
 
 It finds duplicate **images, videos and audio** (and any other file) **by content**, keeps one

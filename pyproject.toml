@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "duplicate-finder"
-version = "1.0.0"
+version = "1.0.0b1"
 description = "Cross-platform duplicate media finder that relocates surplus copies safely and never deletes originals"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -12,6 +12,7 @@ license = { text = "MIT" }
 authors = [{ name = "Madhu Kumar", email = "madhu.a@hotmail.com" }]
 keywords = ["duplicates", "dedupe", "photos", "media", "sha256", "perceptual-hash"]
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
